@@ -39,7 +39,7 @@ const Home = () => {
     console.log("OpenAI replied...", output.message.content)
 
     // update state of apiOutput, isGenerating
-    setApiOutput(`${output.text}`);
+    setApiOutput(`${output.message.content}`);
     setIsGenerating(false);
   }
 
