@@ -21,9 +21,6 @@ const generateAction = async (req, res) => {
         }],
     });
 
-    console.log("you made it!")
-    console.log(baseCompletion)
-
     // return message object
     const basePromptOutput = baseCompletion.choices.pop();
 

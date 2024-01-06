@@ -32,13 +32,13 @@ const Home = () => {
     const data = await response.json();
     const { output } = data;
 
-    console.log("here is your data")
+    console.log("here is your response")
     console.log(data)
 
     console.log("OpenAI replied...", output.message.content)
 
     // update state of apiOutput, isGenerating
-    setApiOutput(`${output.text}`);
+    setApiOutput(`${output.message.content}`);
     setIsGenerating(false);
   }
 
@@ -65,17 +65,30 @@ const Home = () => {
               onChange={onUserChangedText} />
 
             <div className="prompt-buttons">
-              <a className="generate-button" onClick={callGenerateEndpoint}>
+              <a className={isGenerating ? 'generate-button loading' : 'generate-button'}
+                onClick={callGenerateEndpoint}>
                 <div className="generate">
-                  <p>generate</p>
+                  {isGenerating ? <span className="loader"></span> : <p>generate</p>}
                 </div>
               </a>
             </div>
           </div>
 
+          {apiOutput && (
+            <div className="output">
+              <div className="output-header-container">
+                <div className="output-header">
+                  <h3>Output</h3>
+                </div>
+              </div>
+              <div className="output-content">
+                <p>{apiOutput}</p>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
 
+      </div>
     </div>
   );
 };
