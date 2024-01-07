@@ -92,11 +92,6 @@ const Home = () => {
 
           {apiOutput.command && (
             <div className="output">
-              <div className="output-header-container">
-                <div className="output-header">
-                  <h3>Output</h3>
-                </div>
-              </div>
               <div className="output-content">
                 <div className="command-content">
                   <p>{apiOutput.command}</p>

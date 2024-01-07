@@ -44,6 +44,7 @@ body {
 }
 
 .header-title {
+    color: rgb(74, 251, 74);
     display: flex;
     gap: 12px;
 }
@@ -172,7 +173,7 @@ textarea {
 .generate-button {
     place-content: flex-start;
     align-items: flex-start;
-    background-color: rgb(255, 79, 18);
+    background-color: rgb(56, 205, 56);
     border-radius: 100px;
     display: flex;
     flex: 0 0 auto;
@@ -180,12 +181,13 @@ textarea {
     gap: 10px;
     height: min-content;
     overflow: hidden;
-    padding: 16px 24px;
+    padding: 10px 20px;
     position: relative;
     text-decoration: none;
     width: min-content;
     will-change: transform;
     cursor: pointer;
+    margin-bottom: 15px;
 }
 
 .generate {
@@ -328,6 +330,7 @@ textarea {
 
 .command-content p {
     text-align: center;
+    color: #FFF;
 }
 
 @media (min-width: 810px) and (max-width: 1199px) {
