@@ -1,16 +1,29 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
+import hljs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
+
+// register bash for syntax highlighting
+hljs.registerLanguage('bash', bash);
 
 const Home = () => {
   // add react hooks for userInput, apiOutput, generating
   const [userInput, setUserInput] = useState('');
-  const [apiOutput, setApiOutput] = useState('');
+  const [apiOutput, setApiOutput] = useState({ command: '', description: '' });
   const [isGenerating, setIsGenerating] = useState(false);
 
   // set userInput to updated text
   const onUserChangedText = (event) => {
     setUserInput(event.target.value)
+  };
+
+  // parse response to extract command and description
+  const parseApiResponse = (apiResponse) => {
+    const separation = apiResponse.split("\n```\n\n");
+    const command = separation[0].replace("```bash\n", "");
+    const description = separation[1];
+    return { command, description };
   };
 
   // call api to generate response
@@ -37,8 +50,11 @@ const Home = () => {
 
     console.log("OpenAI replied...", output.message.content)
 
+    // parse response then
     // update state of apiOutput, isGenerating
-    setApiOutput(`${output.message.content}`);
+    const parsedOutput = parseApiResponse(output.message.content);
+    setApiOutput(parsedOutput);
+    console.log(parsedOutput)
     setIsGenerating(false);
   }
 
@@ -74,7 +90,7 @@ const Home = () => {
             </div>
           </div>
 
-          {apiOutput && (
+          {apiOutput.command && (
             <div className="output">
               <div className="output-header-container">
                 <div className="output-header">
@@ -82,7 +98,10 @@ const Home = () => {
                 </div>
               </div>
               <div className="output-content">
-                <p>{apiOutput}</p>
+                <div className="command-content">
+                  <p>{apiOutput.command}</p>
+                </div>
+                <p>{apiOutput.description}</p>
               </div>
             </div>
           )}
