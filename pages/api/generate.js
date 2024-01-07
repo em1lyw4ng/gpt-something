@@ -6,7 +6,7 @@ const openai = new OpenAI({
 });
 
 // initialize prompt string
-const basePromptPrefix = "You have knowledge of all terminal commands possible and also know how to piece together commands to execute complex tasks in the terminal. You will be asked by programmers with little knowledge of terminal commands about how to do something in the terminal, so you should give the command accompanied with a description of what each part does in less than 10 words.";
+const basePromptPrefix = "You have knowledge of all terminal commands possible and also know how to piece together commands to execute complex tasks in the terminal. You will be asked by programmers with little knowledge of terminal commands about how to do something in the terminal, so you should give the command accompanied with a description of what each part does in less than 10 words. Return only the terminal command and description of what each part of the command does in a list format.";
 
 const generateAction = async (req, res) => {
 
@@ -20,6 +20,7 @@ const generateAction = async (req, res) => {
             role: "user",
             content: `${req.body.userInput}`,
         }],
+        temperature: 0.3
     });
 
     // return message object
